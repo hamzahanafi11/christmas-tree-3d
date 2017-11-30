@@ -1,19 +1,30 @@
+var slider;
+
 function setup() {
+	slider = createSlider(0,TWO_PI,0,0.01);
 	var canvas = createCanvas(600,600,WEBGL);
 	canvas.parent('tree');
+	slider.parent('slider');
 }
+
 function draw() {
 	background(122,122,122);
 	stroke(255);
+	orbitControl();
 	var len    = 180;
 	var branch = 180;
 	translate(0,height/2,0);
 	line(0,0,0,0,-height+60,0);
 	translate(0,-len,0);
-	rotateY(frameCount*0.01);
 	root(branch);
-
 }
+
+/**
+ * override orbitControl to rotate only Y axis
+ */
+p5.prototype.orbitControl = function(){
+	this.rotateY(slider.value());
+};
 
 function root(branch)
 {
